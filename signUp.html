@@ -20,13 +20,13 @@
       user.set("username", $('#username').val());
       user.set("email",    $('#email').val());
       user.set("password", $('#password').val());
-      user.set("phone",    $('#phone').val());
+      user.set("role",    $(':checked').val());
 
       user.signUp(null,{
         success : function(user){     
           console.log(user);
           alert("使用者註冊成功");
-          window.location="index.html" ;
+          window.location="logIn.html" ;
         },
         error : function(course,error){ 
           console.log(error) ;
