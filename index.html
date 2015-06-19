@@ -15,13 +15,28 @@
     $(document).ready(function(){
       /* 顯示登入者名稱，避免未登入者進入此頁面*/
 
+      var user = Parse.User.current();
 
       if(Parse.User.current() === null){
-
         alert('請先登入');
         window.location = "logIn.html" ;
-        return null;       
-      };
+        return null;   
+
+      }else{
+
+        $('#name').text(user.attributes.username);
+
+          if(user.attributes.role==="teacher"){
+
+            $('#role').text("teacher");
+            window.location = "attendantList.html" ;
+
+          }else{
+
+            $('#role').text("student");
+            window.location = "index.html" ;
+          }
+      }
 
       var name = Parse.User.current().attributes.name;
       var role = Parse.User.current().attributes.role;
@@ -39,6 +54,7 @@
       /* 執行登出動作，並轉址到 logIn 頁面*/
         // 可參考 : https://parse.com/docs/js/guide#users-current-user
       Parse.User.logOut();
+      alert('已登出!');
       window.location = 'logIn.html' ;
       /* 結束 */
     });

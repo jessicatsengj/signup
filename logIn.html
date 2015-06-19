@@ -12,48 +12,34 @@
   <script type="text/javascript" src="js/key.js"></script>
   <script  type="text/javascript">
     $(document).on('submit','#logInForm',function(e){
-        console.log('logIn submit');
-        /* 請閱讀完 html 後在這裡填入送出表單後需要執行的程式碼 */
-          // 提示1 : 記得使用 preventDefault 方程 避免表單轉址
-          // 提示2 : 請在使用者登入成功後，自動幫助使用者簽到，
-          // 提示3 : 簽到成功後，要將畫面切換到 index 頁面
-        e.preventDefault();  
-        console.log ("logIn submit") ;
-        var username = $('#username').val() ;
-        var password = $('#password').val() ;
+      
+      console.log('logIn submit');
+      
+      /* 請閱讀完 html 後在這裡填入送出表單後需要執行的程式碼 */
+        // 提示1 : 記得使用 preventDefault 方程 避免表單轉址
+        // 提示2 : 請在使用者登入成功後，自動幫助使用者簽到，
+        // 提示3 : 簽到成功後，要將畫面切換到 index 頁面
 
-        Parse.User.logout()
-        console.log( "登入之前的 Parse.User.current()  : " , Parse.User.current()) ;
+      e.preventDefault();
 
-        Parse.User.logIn( username , password , {
-          success: function(user) {
-            console.log("登入之後的 Parse.User.current()  : " , Parse.User.current()) ;
+      var username = $('#username').val() ;
+      var password = $('#password').val() ;
 
-            var name = user.attributes.username;
-            var role = user.attributes.role;
-            if (role === 'student'){
-           
-                var AttendantList = Parse.Object.extend("AttendantList");
-                var attendantList = new AttendantList;
-                attendantList.set("name",name);
-
-                attendantList.save(null,{
-                  success :  function(list){
-                    console.log(list);
-                  },
-                  error: function(user, error) {
-                    console.log(error) ;
-                    alert(error.message);
-                  }
-                });
-            };
-            alert('登入成功') ;
-            window.location = 'index.html' ;
-          }
-        });
-           
-        /* 結束*/
+      
+      Parse.User.logIn( username , password , {
+        success: function(user) {
+          console.log(user) ;
+          alert('登入成功!') ;
+          window.location="index.html"
+          return null;
+        },
+      error: function(user, error) {
+        console.log(error) ;
+        alert(error.message);
+      }
+      });/* 結束*/
     });//endof logInBtn onSubmit
+
   </script>
 </head>
 
