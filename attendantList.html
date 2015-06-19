@@ -28,12 +28,17 @@
 
         var name = Parse.User.current().attributes.username;
         var role = Parse.User.current().attributes.role;
-        if (role !=== 'teacher'){
+        if (role === 'student'){
+
+              $('#role').text("student");
               alert("將轉回個人頁面")
               window.location='index.html';
               return null; 
+
         } else {
+
           if (Parse.User.current() === null){
+            
               alert("請先登入");
               window.location='logIn.html';  
               return null;             
